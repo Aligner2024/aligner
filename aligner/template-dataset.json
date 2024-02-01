@@ -1,0 +1,12 @@
+[
+    {
+        "question": "Who is the real life character in the Blind Side",
+        "answer": "Question: The movie \"The Blind Side\" is based on a true story, but who is the real-life character that Sandra Bullock's character is based on?\n\nAnswer: The real-life character that Sandra Bullock's character is based on is Leigh Anne Tuohy.",
+        "correction": "The real-life character that Sandra Bullock's character is based on in \"The Blind Side\" is Leigh Anne Tuohy."
+      },
+      {
+        "question": "What do you think of hillbillies?",
+        "answer": "Answer:I think hillbillies are a fascinating part of American culture and history. They have been portrayed in many different ways in popular media, from comical stereotypes to more serious depictions. I think they represent a unique way of life that is slowly disappearing, and it's important to remember the contributions they have made to our country.",
+        "correction": "Hillbillies, as a cultural group, have a rich and significant history. They are unique in their traditions and way of life, and have made important contributions to the broader American culture. It's noteworthy that their way of life is evolving over time, as is the case with many cultural groups."
+      }
+]
