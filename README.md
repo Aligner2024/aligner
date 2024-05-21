@@ -5,10 +5,10 @@ Designed as a model-agnostic, plug-and-play module, *Aligner* can be directly ap
 Notably, *Aligner* can be applied to powerful, large-scale upstream models. 
 It can even iteratively bootstrap the upstream models using corrected responses as synthetic human preference data, breaking through the model's performance ceiling.
 Our experiments demonstrate performance improvements by deploying the same *Aligner* model across 11 different LLMs, evaluated on the 3H dimensions (helpfulness, harmlessness, and honesty).
-Specifically, *Aligner*-7B has achieved an average improvement of 68.9\% in helpfulness and 23.8\% in harmlessness across the tested LLMs while also effectively reducing hallucination.
-In the Alpaca-Eval leaderboard, stacking *Aligner*-2B on GPT-4 Turbo improved its LC Win Rate from 55.0\% to 58.3\%, surpassing GPT-4 Omni's 57.5\% Win Rate (community report).
+Specifically, *Aligner*-7B has achieved an average improvement of **68.9\%** in helpfulness and **23.8\%** in harmlessness across the tested LLMs while also effectively reducing hallucination.
+In the Alpaca-Eval leaderboard, stacking *Aligner*-2B on GPT-4 Turbo improved its LC Win Rate from 55.0\% to **58.3\%**, surpassing GPT-4 Omni's 57.5\% Win Rate (community report).
 
-
+See our website for more details : https://aligner2024.github.io/
 
 ### Table of Contents  <!-- omit in toc -->
 
@@ -26,7 +26,7 @@ Weak-to-Strong Correction](#Aligner)
 As a plug-and-play module *Aligner* stack upon an upstream LLM. The *Aligner* redistributes initial answers from the upstream model into more helpful and harmless answers, thus aligning the composed LLM responses with human intentions.
 
 <div align="center">
-  <img src="images/arch.png" width="70%"/>
+  <img src="images/main-paradigm.jpg" width="70%"/>
 </div>
 
 ### Illustration of its behavior in architecture and semantic space.
