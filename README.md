@@ -1,8 +1,12 @@
-<h1 align="center"><em>Aligner</em>: Achieving Efficient Alignment through <br>
-Weak-to-Strong Correction </h1>
+<h1 align="center">Achieving Efficient Alignment through Learned Correction  </h1>
 
-Efforts to align Large Language Models (LLMs) are mainly conducted via Reinforcement Learning from Human Feedback (RLHF) methods. However, RLHF encounters major challenges including training reward models, actor-critic engineering, and importantly, it requires access to LLM parameters. Here we introduce *Aligner*, a new efficient alignment paradigm that bypasses the whole RLHF process by learning the correctional residuals between the aligned and the unaligned answers. Our *Aligner* offers several key advantages. Firstly, it is an autoregressive seq2seq model that is trained on the query-answer-correction dataset via supervised learning; this offers a parameter-efficient alignment solution with minimal resources. Secondly, the *Aligner* facilitates weak-to-strong generalization; finetuning large pretrained models by *Aligner*'s supervisory signals demonstrates strong performance boost. Thirdly, *Aligner* functions as a model-agnostic plug-and-play module, allowing for its direct application on different open-source and API-based models. Remarkably, *Aligner*-7B improves 11 different LLMs by 21.9% in helpfulness and 23.8% in harmlessness on average (GPT-4 by 17.5% and 26.9%). When finetuning (strong) Llama2-70B with (weak) *Aligner*-13B's supervision, we can improve Llama2 by 8.2% in helpfulness and 61.6% in harmlessness. See our dataset and code at https://aligner2024.github.io.
-
+With the rapid development of large language models (LLMs) and ever-evolving practical requirements, finding an efficient and effective alignment method has never been more critical. However, the tension between the complexity of current alignment methods and the need for rapid iteration in deployment scenarios necessitates the development of a model-agnostic alignment approach that can operate under these constraints. In this paper, we introduce *Aligner*, a novel and simple alignment paradigm that learns the correctional residuals between preferred and dispreferred answers using a small model.
+Designed as a model-agnostic, plug-and-play module, *Aligner* can be directly applied to various open-source and API-based models with only one-off training, making it suitable for rapid iteration.
+Notably, *Aligner* can be applied to powerful, large-scale upstream models. 
+It can even iteratively bootstrap the upstream models using corrected responses as synthetic human preference data, breaking through the model's performance ceiling.
+Our experiments demonstrate performance improvements by deploying the same *Aligner* model across 11 different LLMs, evaluated on the 3H dimensions (helpfulness, harmlessness, and honesty).
+Specifically, *Aligner*-7B has achieved an average improvement of 68.9\% in helpfulness and 23.8\% in harmlessness across the tested LLMs while also effectively reducing hallucination.
+In the Alpaca-Eval leaderboard, stacking *Aligner*-2B on GPT-4 Turbo improved its LC Win Rate from 55.0\% to 58.3\%, surpassing GPT-4 Omni's 57.5\% Win Rate (community report).
 
 
 
@@ -18,17 +22,26 @@ Weak-to-Strong Correction](#Aligner)
 
 ## <em>Aligner</em>: Achieving Efficient Alignment through Weak-to-Strong Correction 
 
-### Architecture of the *Aligner* module and illustration of its behavior in semantic space.
-The *Aligner*, a plug-and-play model, stacks upon an upstream LLM (aligned or unaligned). It redistributes initial answers from the upstream model into more helpful and harmless answers, thus aligning the composed LLM responses with human intentions. It is challenging to learn direct mappings from queries to aligned answers. Nonetheless, correcting answers based on the upstream model’s output is a more tractable learning task. 
+### Architecture of the *Aligner* module.
+As a plug-and-play module *Aligner* stack upon an upstream LLM. The *Aligner* redistributes initial answers from the upstream model into more helpful and harmless answers, thus aligning the composed LLM responses with human intentions.
 
 <div align="center">
-  <img src="images/main-paradigm.jpg" width="60%"/>
+  <img src="images/arch.png" width="70%"/>
+</div>
+
+### Illustration of its behavior in architecture and semantic space.
+Like a residual block that adds modifications via a shortcut without altering the base structure, the *Aligner* employs a *copy and correct* method to improve the original answer. 
+This analogy highlights the *Aligner*'s dual role in preserving the parameter of the upstream model while enhancing it to align with desired outcomes.
+
+<div align="center">
+  <img src="images/semantic_space.png" width="90%"/>
 </div>
 
 ### Performance of *Aligner* Models
-It is shown that <i>Aligner</i> achieves significant performances in all the settings. All assessments in this table were conducted based on integrating various models with <i>Aligners</i> to compare with the original models to quantify the percentage increase in helpfulness and harmlessness. The background color represents the type of target language model: green represents API-based models, orange represents open-source models without safety alignment, and blue represents safety-aligned open-source models. 
+It is shown that *Aligner* achieves significant performances in all the settings. All assessments in this table were conducted based on integrating various models with *Aligner*s to compare with the original models to quantify the percentage increase in the *3H* standard.
+When integrated and assessed in conjunction with various upstream models, the *Aligner* requires only a single training session (*i.e.*, the *Aligner* can operate in a zero-shot manner and enhance the performance of all upstream models.)
 <div align="center">
-  <img src="images/performance.jpg" width="90%"/>
+  <img src="images/performance.png" width="90%"/>
 </div>
 
 ### More Details
